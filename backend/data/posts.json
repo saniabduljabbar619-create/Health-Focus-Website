@@ -1,0 +1,92 @@
+[
+    {
+        "id": "8",
+        "type": "article",
+        "title": "Youtube embed test",
+        "excerpt": "You tube video test",
+        "category": "General",
+        "date": "2025-12-01",
+        "image": "default.jpg",
+        "video_file": "",
+        "video_url": "",
+        "content": ""
+    },
+    {
+        "id": "7",
+        "type": "video",
+        "title": "Health focus specialist",
+        "excerpt": "New video update",
+        "category": "General",
+        "date": "2025-12-01",
+        "image": "default.jpg",
+        "video_file": "hf-6.mp4",
+        "video_url": "",
+        "content": ""
+    },
+    {
+        "id": "6",
+        "title": "test 2",
+        "excerpt": "Another video insertion test",
+        "category": "General",
+        "date": "2025-12-01",
+        "image": "default.jpg",
+        "content": ""
+    },
+    {
+        "id": "5",
+        "title": "test",
+        "excerpt": "Sample video upload test\r\nhttps://youtu.be/SCJnwT-h7Aw",
+        "category": "General",
+        "date": "2025-12-01",
+        "image": "default.jpg",
+        "content": "<hr>\r\n<p>https://youtu.be/SCJnwT-h7Aw</p>"
+    },
+    {
+        "id": "4",
+        "type": "video",
+        "title": "Introducing our new entries and seamless use of software to make our daily activities easy",
+        "excerpt": "Software solution",
+        "category": "Pharmacy",
+        "date": "2025-12-01",
+        "image": "default.jpg",
+        "video_url": "https://youtu.be/LdSAaSHfK3M",
+        "video_file": "",
+        "content": "<p>we are introducing the use of software in our clinical and pharmacy store, this will help us and any of the clinics has stable access and easy work done</p>\r\n<hr>\r\n<p>&nbsp;</p>"
+    },
+    {
+        "id": "3",
+        "type": "video",
+        "title": "New update on our clinic",
+        "excerpt": "<h1><strong>latest clinical update</strong></h1>",
+        "category": "General",
+        "date": "2025-11-15",
+        "image": "hf-1.jpg",
+        "video_url": "",
+        "video_file": "clinic_update.mp4",
+        "content": "<p>this is to inform you that our new update is out. you can now reach us via.</p>"
+    },
+    {
+        "id": "1",
+        "type": "article",
+        "title": "Understanding Hypertension",
+        "excerpt": "High blood pressure remains one of the most silent but deadly conditions...",
+        "category": "Health Tips",
+        "date": "2025-01-04",
+        "image": "hypertension.jpg",
+        "video_url": "",
+        "video_file": "",
+        "content": ""
+    },
+    {
+        "id": "2",
+        "type": "article",
+        "title": "Clinic Expansion Announcement",
+        "excerpt": "We are excited to announce the opening of our new diagnostic wing...",
+        "category": "News",
+        "date": "2025-11-15",
+        "image": "pic_13.jpeg",
+        "video_url": "",
+        "video_file": "",
+        "content": "We are expanding our clinics to new powerful features"
+    }
+]

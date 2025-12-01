@@ -1,0 +1,48 @@
+[
+    {
+        "id": 1,
+        "name": "Dr. Musa Isah",
+        "role": "Medical Director and C.E.O",
+        "bio": "Leading our diagnostic unit with expertise in Clinical Practice and advanced health Care.",
+        "images": [
+            "images/hods/dr1.jpeg",
+            "images/hods/dr2.jpeg",
+            "images/hods/dr3.jpeg"
+        ],
+        "department": "Opthalmology",
+        "active": false,
+        "photo": "uploads/hods/md_photo.jpeg"
+    },
+    {
+        "id": 2,
+        "name": "Mgr. Abubakar Haruna",
+        "role": "Head of Health - Focus and Controller of all Departments",
+        "bio": "Abubakar Haruna serves as the Manager of Health-Focus Clinics, Pharmacy, and Diagnostics, providing strategic leadership and operational direction across all service units. He oversees daily operations, ensures compliance with professional standards, and supports efficient coordination between clinical, pharmaceutical, and diagnostic teams.\r\n\r\nWith strong administrative and data management capabilities, he drives performance improvement, strengthens service delivery, and supports the organization\u2019s commitment to quality, accountability, and patient-centered\u00a0care.",
+        "images": [
+            "images/hods/mgr1.jpeg",
+            "images/hods/mgr2.png",
+            "images/hods/mgr3.jpeg"
+        ],
+        "department": "Manager",
+        "active": false,
+        "photo": "uploads/hods/mgr3.jpeg"
+    },
+    {
+        "id": 3,
+        "name": "MLS. Nabil Abbas Sani",
+        "role": "Medical Laboratory Scientist",
+        "department": "Laboratory",
+        "bio": "A dedicated and detail oriented Medical Laboratory Scientist with hands on experience in hematology, clinical chemistry, microbiology, blood banking, immunology, and quality assurance Skilled in laboratory analysis, result interpretation, patient education, and the use of automated analyzers. Committed to accuracy, professionalism, and excellent\u00a0patient\u00a0care.",
+        "photo": "uploads/hods/mls2.jpeg",
+        "active": true
+    },
+    {
+        "id": 4,
+        "name": "Bashir Ibrahim",
+        "role": "Pharmacist",
+        "department": "Asarrafa Pharmacy",
+        "bio": "not yet st",
+        "photo": "uploads/hods/ch1.jpeg",
+        "active": true
+    }
+]
