@@ -1,0 +1,28 @@
+[
+    {
+        "id": "3",
+        "title": "New update on our clinic",
+        "excerpt": "<h1><strong>latest clinical update</strong></h1>",
+        "category": "General",
+        "date": "2025-11-15",
+        "image": "video.jpeg",
+        "content": "<p>this is to inform you that our new update is out. you can now reach us via.</p>"
+    },
+    {
+        "id": "1",
+        "title": "Understanding Hypertension",
+        "excerpt": "High blood pressure remains one of the most silent but deadly conditions...",
+        "category": "Health Tips",
+        "date": "Jan 4, 2025",
+        "image": "hypertension.jpg"
+    },
+    {
+        "id": "2",
+        "title": "Clinic Expansion Announcement",
+        "excerpt": "We are excited to announce the opening of our new diagnostic wing...",
+        "category": "News",
+        "date": "2025-11-15",
+        "image": "pic_13.jpeg",
+        "content": "We are expanding our clinics to new powerful features"
+    }
+]
