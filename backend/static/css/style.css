@@ -1,0 +1,2128 @@
+/* =========================================================
+   MASTER PROFESSIONAL THEME — HEALTH FOCUS CLINICS
+   Color Palette: Dark Green + Blue-Black + White
+   Designed by Solunex
+========================================================= */
+
+/* ------------------------------
+   CSS VARIABLES (Theme System)
+------------------------------ */
+:root {
+    --primary: #06243b;          /* Blue-Black */
+    --primary-light: #0b3c61;
+    --secondary: #0d5f47;        /* Medical Dark Green */
+    --secondary-light: #148065;
+    --bg-light: #f5f8fc;
+    --bg-white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-light: #f0f0f0;
+    --muted: #7c8a96;
+
+    --radius: 10px;
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 14px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
+
+    --transition: 0.25s ease;
+}
+
+/* ------------------------------
+   GLOBAL STYLES
+------------------------------ */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.page-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px 50px;
+}
+
+/* ------------------------------
+   HEADER — PROFESSIONAL NAVBAR
+------------------------------ */
+.main-header {
+    background: var(--primary);
+    padding: 15px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    box-shadow: var(--shadow-sm);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* BRAND */
+.logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.brand-main {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--bg-white);
+    letter-spacing: -0.5px;
+}
+
+.brand-sub {
+    font-size: 14px;
+    color: var(--secondary-light);
+    font-weight: 600;
+    margin-top: -3px;
+}
+
+/* NAV LINKS */
+.desktop-nav a {
+    margin-left: 28px;
+    text-decoration: none;
+    color: var(--bg-white);
+    font-weight: 500;
+    padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.desktop-nav a.active,
+.mobile-nav a.active {
+    color: var(--secondary);          /* green accent */
+    font-weight: 700;
+    border-bottom: 3px solid var(--secondary);
+    padding-bottom: 4px;
+}
+
+
+.desktop-nav a:hover {
+    border-bottom: 2px solid var(--secondary-light);
+    color: var(--secondary-light);
+}
+
+/* MOBILE MENU */
+/* MOBILE MENU BUTTON */
+.mobile-menu-btn {
+    display: none;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* MOBILE NAV (hidden by default) */
+.mobile-nav {
+    position: absolute;
+    top: 70px;                       /* sits below header */
+    left: 0;
+    width: 100%;
+    background: var(--primary-light);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    max-height: 0;                   /* collapse menu */
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.35s ease, opacity 0.3s ease;
+    z-index: 2000;
+}
+
+/* OPEN STATE */
+.mobile-nav.open {
+    max-height: 420px;               /* enough space for all links */
+    opacity: 1;
+    visibility: visible;
+}
+
+/* MOBILE MENU LINKS */
+.mobile-nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    font-size: 17px;
+    display: block;
+}
+
+/* Last item has no border */
+.mobile-nav a:last-child {
+    border-bottom: none;
+}
+
+/* Show mobile nav only below 820px */
+@media (max-width: 820px) {
+    .desktop-nav { display: none; }
+    .mobile-menu-btn { display: block; }
+}
+
+
+
+/* =========================================
+   MASTER-GRADE HOME HERO
+========================================= */
+.home-hero {
+    position: relative;
+    width: 100%;
+    height: 86vh;
+    min-height: 520px;
+    overflow: hidden;
+}
+
+/* Background slider */
+.home-hero-slider {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.home-slide-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.home-slider-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2.2s ease-in-out;
+}
+
+.home-slider-img:first-child { opacity: 1; }
+
+/* Gradient medical overlay */
+.home-hero-slider::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(3, 35, 54, 0.55),
+        rgba(3, 35, 54, 0.75) 45%,
+        rgba(3, 35, 54, 0.88)
+    );
+    z-index: 2;
+}
+
+/* =========================================
+   HERO TEXT + BUTTONS
+========================================= */
+.home-hero-overlay {
+    position: relative;
+    z-index: 5;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+    color: white;
+}
+
+.hero-title {
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 3px 16px rgba(0,0,0,0.4);
+}
+
+.hero-title span {
+    color: var(--secondary-light);
+}
+
+.hero-sub {
+    margin-top: 14px;
+    font-size: 20px;
+    color: #e9ecef;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Glassmorphism button bar */
+.glass-bar {
+    margin-top: 26px;
+    display: inline-flex;
+    padding: 12px 22px;
+    gap: 18px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+
+.hero-main-btn {
+    background: var(--secondary);
+    padding: 14px 32px;
+    border-radius: var(--radius);
+}
+
+.hero-outline-btn {
+    border: 2px solid white;
+    padding: 14px 32px;
+    border-radius: var(--radius);
+}
+
+/* Curve */
+.curve-divider {
+    width: 100%;
+    height: 85px;
+    background: white;
+    border-bottom-left-radius: 60% 45px;
+    border-bottom-right-radius: 60% 45px;
+    margin-top: -40px;
+    z-index: 9;
+    position: relative;
+}
+
+/* Responsive */
+@media(max-width:900px) {
+    .hero-title { font-size: 38px; }
+    .hero-sub { font-size: 16px; }
+    .glass-bar { flex-direction: column; padding: 16px; }
+}
+
+/* ------------------------------
+   HOME DESCRIPTION
+------------------------------ */
+.home-description {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.home-description h2 {
+    font-size: 34px;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.home-description p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 850px;
+    margin: 15px auto 35px;
+}
+
+/* ------------------------------
+   MANAGER / CEO SECTION
+------------------------------ */
+.manager-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin-top: 30px;
+}
+
+.manager-photo {
+    width: 240px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    border: 3px solid var(--secondary);
+}
+
+.manager-text {
+    max-width: 520px;
+    font-size: 17px;
+    color: var(--text-dark);
+}
+
+/* ------------------------------
+   BUTTON (GLOBAL)
+------------------------------ */
+.btn {
+    display: inline-block;
+    padding: 12px 26px;
+    background: var(--secondary);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.btn:hover {
+    background: var(--secondary-light);
+}
+
+/* =====================================
+   NEW PROFESSIONAL FOOTER
+===================================== */
+
+.main-footer {
+    background: var(--primary-light);
+    padding: 50px 20px;
+    margin-top: 80px;
+    color: var(--bg-white);
+    border-top: 4px solid var(--secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.footer-wrapper {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+/* Brand */
+.footer-brand h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.footer-brand p {
+    margin-top: 6px;
+    font-size: 15px;
+    color: #d9e6f2;
+}
+
+/* Social Icons */
+.footer-social {
+    margin: 25px 0 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    background: var(--secondary-light);
+    transform: translateY(-4px);
+}
+
+/* Footer Links */
+.footer-links {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #e6f0fa;
+    font-size: 15px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--secondary-light);
+}
+
+/* Copyright */
+.footer-copy {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #dbe9f4;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .footer-social {
+        gap: 16px;
+    }
+    .footer-links {
+        gap: 16px;
+    }
+}
+
+
+/* ------------------------------
+   RESPONSIVE
+------------------------------ */
+@media (max-width: 900px) {
+    .manager-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .home-hero-overlay h1 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 760px) {
+    .desktop-nav { display: none; }
+    .mobile-menu-btn { display: block; }
+}
+
+/* ------------------------------
+   ANIMATIONS
+------------------------------ */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1.2s ease forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+/* =========================================================
+   SERVICES PAGE — HOD CAROUSEL
+========================================================= */
+
+.services-header {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.services-header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.services-header p {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 800px;
+    margin: 10px auto 0;
+}
+
+/* HOD Cards Layout */
+.hod-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    margin-top: 50px;
+}
+
+/* Individual HOD Card */
+.hod-card {
+    display: flex;
+    gap: 40px;
+    background: var(--bg-white);
+    padding: 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    align-items: center;
+}
+
+/* HOD Image Box */
+.hod-image-box {
+    width: 300px;
+    height: 320px;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.hod-img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1.6s ease-in-out;
+}
+
+.active-hod {
+    opacity: 1;
+}
+
+/* Text */
+.hod-info h2 {
+    font-size: 26px;
+    color: var(--primary);
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.hod-info h4 {
+    font-size: 17px;
+    color: var(--secondary);
+    margin-bottom: 12px;
+}
+
+.hod-info p {
+    font-size: 16px;
+    color: #555;
+    max-width: 550px;
+}
+
+/* Button */
+.btn-hod {
+    margin-top: 18px;
+    background: var(--secondary);
+    padding: 12px 22px;
+    border-radius: var(--radius);
+}
+
+.btn-hod:hover {
+    background: var(--secondary-light);
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+    .hod-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hod-image-box {
+        width: 260px;
+        height: 280px;
+    }
+}
+
+
+
+
+/* =========================================================
+   MD GENERAL PAGE — EXECUTIVE PROFILE DESIGN (SAFE PREFIX)
+   PREFIX USED: .mdg-*
+========================================================= */
+
+/* HERO SECTION */
+.mdg-hero {
+    background: linear-gradient(to bottom,
+        rgba(6, 36, 59, 0.65),
+        rgba(6, 36, 59, 0.90)
+    ),
+    url('../images/md/Dr-1.jpeg');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    color: white;
+    position: relative;
+}
+
+.mdg-hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.mdg-photo-box {
+    width: 260px;
+    height: 300px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 3px solid var(--secondary);
+}
+
+.mdg-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mdg-identity h1 {
+    font-size: 38px;
+    font-weight: 800;
+}
+
+.mdg-identity h3 {
+    color: var(--secondary-light);
+    font-size: 20px;
+    margin-top: -4px;
+}
+
+.mdg-short-bio {
+    max-width: 650px;
+    font-size: 17px;
+    color: #e7e7e7;
+    margin-top: 18px;
+    line-height: 1.55;
+}
+
+/* BIO SECTION */
+.mdg-bio-section {
+    padding: 50px 0 20px;
+}
+.mdg-bio-section h2 {
+    font-size: 30px;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+/* EDUCATION */
+.mdg-education {
+    padding: 40px 0;
+}
+
+.mdg-education ul {
+    max-width: 600px;
+    margin-left: 20px;
+}
+
+.mdg-education li {
+    margin-bottom: 12px;
+    font-size: 17px;
+}
+
+/* EXPERIENCE TIMELINE */
+.mdg-experience {
+    padding: 40px 0;
+}
+
+.mdg-timeline {
+    border-left: 3px solid var(--secondary);
+    padding-left: 22px;
+    margin-top: 22px;
+}
+
+.mdg-timeline-item {
+    margin-bottom: 26px;
+}
+
+.mdg-year {
+    font-weight: 700;
+    color: var(--secondary);
+    font-size: 18px;
+}
+
+/* LEADERSHIP MESSAGE */
+.mdg-message {
+    padding: 50px 0;
+    font-style: italic;
+}
+
+.mdg-message p {
+    max-width: 850px;
+    margin: auto;
+    font-size: 19px;
+    color: #444;
+    line-height: 1.6;
+}
+
+/* CTA SECTION */
+.mdg-cta {
+    padding: 55px 0 80px;
+    text-align: center;
+}
+
+.mdg-btn {
+    background: var(--primary);
+    padding: 14px 34px;
+    font-size: 18px;
+    border-radius: var(--radius);
+    color: white;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.mdg-btn:hover {
+    background: var(--primary-light);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .mdg-hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .mdg-photo-box {
+        width: 230px;
+        height: 270px;
+    }
+}
+
+
+
+
+/* =========================================================
+   BLOG LIST PAGE — PROFESSIONAL CARDS
+========================================================= */
+
+.blog-header {
+    text-align: center;
+    padding: 50px 20px 30px;
+}
+
+.blog-header h1 {
+    font-size: 38px;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.blog-header p {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 740px;
+    margin: 12px auto 0;
+}
+
+/* GRID */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 35px;
+    margin-top: 40px;
+}
+
+/* BLOG CARD */
+.blog-card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Image */
+.blog-img-box {
+    width: 100%;
+    height: 210px;
+    overflow: hidden;
+}
+
+.blog-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .4s ease;
+}
+
+.blog-card:hover .blog-img {
+    transform: scale(1.07);
+}
+
+/* Body */
+.blog-body {
+    padding: 20px 22px 28px;
+}
+
+.blog-category {
+    background: var(--secondary);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.blog-body h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 12px;
+}
+
+.blog-excerpt {
+    margin: 12px 0 20px;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.blog-meta {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+/* Button */
+.blog-btn {
+    background: var(--primary);
+    padding: 10px 20px;
+    border-radius: var(--radius);
+}
+
+.blog-btn:hover {
+    background: var(--primary-light);
+}
+
+
+
+/* =========================================================
+   BLOG DETAILS PAGE
+========================================================= */
+
+.blog-details-hero {
+    width: 100%;
+    height: 360px;
+    overflow: hidden;
+    border-bottom: 4px solid var(--secondary);
+}
+
+.blog-details-banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-details-container {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.blog-details-header h1 {
+    font-size: 34px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.blog-details-category {
+    background: var(--secondary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.blog-details-meta {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.blog-details-content {
+    margin-top: 25px;
+    font-size: 18px;
+    line-height: 1.65;
+    color: #333;
+}
+
+.blog-details-content h2,
+.blog-details-content h3 {
+    color: var(--primary);
+    margin-top: 25px;
+}
+
+.blog-back-btn {
+    margin-top: 40px;
+}
+
+/* RELATED POSTS */
+.related-posts {
+    margin-top: 70px;
+    padding: 40px 20px;
+    background: var(--bg-light);
+}
+
+.related-posts h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 26px;
+    color: var(--primary);
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 25px;
+}
+
+.related-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+    transition: transform .25s ease;
+}
+
+.related-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.related-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.related-info {
+    padding: 15px;
+}
+
+.related-category {
+    background: var(--secondary);
+    color: white;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.related-info h3 {
+    font-size: 18px;
+    margin-top: 8px;
+    color: var(--primary);
+}
+
+
+/* ============================================
+   ADMIN LOGIN PAGE
+=============================================== */
+
+.admin-login-body {
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Inter, sans-serif;
+}
+
+.admin-login-box {
+    background: white;
+    width: 360px;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    text-align: center;
+}
+
+.admin-login-title {
+    color: #003049;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.admin-login-form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.admin-login-form label {
+    font-weight: 600;
+    margin-top: 12px;
+    color: #2b2d42;
+}
+
+.admin-login-form input {
+    padding: 10px;
+    margin-top: 4px;
+    border-radius: 6px;
+    border: 1px solid #c8d1dc;
+}
+
+.admin-login-btn {
+    background: #045c40;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.admin-login-btn:hover {
+    background: #034d35;
+}
+
+.admin-login-error {
+    background: #ffd7d7;
+    padding: 8px;
+    border-radius: 6px;
+    color: #a80000;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+
+/* ============================================
+   ADMIN DASHBOARD
+=============================================== */
+
+.admin-dashboard {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.admin-title {
+    color: #003049;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.admin-top-bar {
+    margin-bottom: 20px;
+}
+
+.admin-create-btn {
+    background: #045c40;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.admin-create-btn:hover {
+    background: #034d35;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.10);
+}
+
+.admin-table th, .admin-table td {
+    padding: 14px;
+    border-bottom: 1px solid #e1e5eb;
+}
+
+.admin-table th {
+    background: #053153;
+    color: white;
+    text-align: left;
+}
+
+.admin-actions {
+    text-align: center;
+}
+
+.admin-edit {
+    color: #0a66c2;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.admin-delete {
+    color: #d62828;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.admin-logout-btn {
+    display: inline-block;
+    margin-top: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #d62828;
+}
+
+
+.admin-subtitle {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #0c2a35;
+}
+
+.admin-table img {
+    border-radius: 8px;
+}
+
+.admin-create-btn {
+    background: #0a8150;
+    color: white !important;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.admin-edit {
+    color: #0a6cff;
+    font-weight: 600;
+}
+
+.admin-delete {
+    color: #d00000;
+    font-weight: 600;
+}
+
+.admin-actions {
+    text-align: center;
+}
+
+
+/* ============================
+   ADMIN HOD MANAGEMENT (Card UI)
+============================ */
+
+.admin-hods-page {
+    padding: 40px 0;
+}
+
+.admin-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    color: #052a3a;
+}
+
+.admin-add-btn {
+    background: #045c40;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    display: inline-block;
+    font-weight: 600;
+    transition: .2s;
+}
+.admin-add-btn:hover {
+    background: #034d33;
+}
+
+/* GRID */
+.admin-hod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* CARD */
+.admin-hod-card {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-hod-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* INFO */
+.admin-hod-info {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.admin-role {
+    font-weight: 700;
+    color: #065f46;
+    margin-top: 6px;
+}
+
+.admin-dept {
+    color: #6b7280;
+    margin-top: 4px;
+    font-size: 15px;
+}
+
+/* STATUS BADGE */
+.admin-status {
+    margin-top: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.admin-status.active { background: #d1fae5; color: #065f46; }
+.admin-status.inactive { background: #fee2e2; color: #991b1b; }
+
+/* ACTION BUTTONS */
+.admin-hod-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.admin-edit {
+    background: #0b7285;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: .2s;
+}
+.admin-edit:hover {
+    background: #085c6a;
+}
+
+.admin-delete {
+    background: #d00000;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: .2s;
+}
+.admin-delete:hover {
+    background: #a60000;
+}
+
+/* MOBILE FIX */
+@media (max-width: 500px) {
+    .admin-hod-card {
+        padding: 16px;
+    }
+    .admin-hod-img {
+        height: 200px;
+    }
+    .admin-hod-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    .admin-edit, .admin-delete {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+/* Admin Form */
+.admin-form {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+}
+
+.admin-form label {
+    display: block;
+    font-weight: 600;
+    margin-top: 14px;
+}
+
+.admin-form input,
+.admin-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    background: #f8fafc;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.admin-preview-img {
+    width: 160px;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.save-btn {
+    margin-top: 20px;
+    background: #045c40;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+/* FINAL ADMIN ACTION BUTTONS FIX */
+
+.admin-hod-actions button,
+.admin-hod-actions a,
+.admin-actions button,
+.admin-actions a {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Edit button */
+.admin-edit {
+    background: #0b7285;
+    color: white !important;
+}
+.admin-edit:hover {
+    background: #085c6a;
+}
+
+/* Delete button */
+.admin-delete {
+    background: #d00000;
+    color: white !important;
+}
+.admin-delete:hover {
+    background: #a60000;
+}
+
+
+/* HOD FULL PROFILE PAGE */
+.hod-profile-page {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.hod-profile-card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+    display: flex;
+    gap: 30px;
+}
+
+.hod-profile-img {
+    width: 280px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.hod-profile-info h1 {
+    font-size: 32px;
+    color: #053153;
+}
+
+.hod-role {
+    color: #065f46;
+    font-weight: 600;
+    margin-top: 8px;
+    font-size: 18px;
+}
+
+.hod-department {
+    color: #6b7280;
+    margin-bottom: 14px;
+}
+
+.hod-bio {
+    line-height: 1.7;
+    color: #444;
+    margin-top: 10px;
+}
+
+
+
+/* ============================================
+   NEW POST FORM
+=============================================== */
+
+.admin-form-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.admin-form-section h1 {
+    color: #003049;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.admin-post-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-post-form label {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.admin-post-form input,
+.admin-post-form textarea,
+.admin-post-form select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    margin-top: 5px;
+}
+
+.admin-save-btn {
+    margin-top: 25px;
+    background: #045c40;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-save-btn:hover {
+    background: #034d35;
+}
+
+.admin-back-btn {
+    display: inline-block;
+    margin-top: 15px;
+    color: #003049;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+.admin-current-image {
+    width: 240px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+.footer-admin {
+    margin-top: 10px;
+}
+
+.footer-admin a {
+    font-size: 13px;
+    opacity: 0.5;
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-admin a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+
+
+
+/* ================================
+   PREMIUM ABOUT — C LAYOUT (SAFE)
+   All classes prefixed aboutC-
+   Replace the previous AboutC CSS block with this
+================================ */
+
+/* Scoped utility: only set safe baseline behaviors for this module */
+.aboutC-page {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: #0c2a35;
+    --green: #04a179;
+    --deep: #052a3a;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+}
+
+/* Make sure children use border-box so paddings behave predictably */
+.aboutC-page *,
+.aboutC-page *::before,
+.aboutC-page *::after {
+    box-sizing: inherit;
+}
+
+/* ========================================
+   HERO SECTION — Premium Brand Layout
+======================================== */
+.aboutC-hero-hero {
+    position: relative;
+    height: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px 120px;
+    overflow: hidden;
+    background: #eaf3f6;
+}
+
+/* Subtle Background Video (keeps video visually behind content) */
+.aboutC-hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.28;
+    z-index: 1;
+    pointer-events: none; /* avoid blocking clicks */
+}
+
+/* Foreground content (on top of video) */
+.aboutC-hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 760px;
+    padding: 0 12px;
+}
+
+/* Badge */
+.aboutC-hero-badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 18px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    font-size: 15px;
+}
+
+/* Title */
+.aboutC-hero-title {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--deep);
+    line-height: 1.12;
+    margin: 0 0 10px;
+}
+
+/* highlight inside title */
+.aboutC-hero-title .highlight {
+    color: var(--green);
+}
+
+/* Subtitle */
+.aboutC-sub {
+    margin: 14px 0 26px;
+    color: #415a66;
+    font-size: 19px;
+    max-width: 780px;
+    margin-inline: auto;
+}
+
+/* Buttons row */
+.aboutC-hero-buttons {
+    margin-top: 6px;
+}
+.aboutC-hero-buttons .btn {
+    margin: 8px 8px 0 8px;
+}
+
+/* Curve Divider (visual only) */
+.aboutC-curve {
+    position: absolute;
+    bottom: -40px;
+    left: -10%;
+    width: 120%;
+    height: 160px;
+    background: white;
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ========================================
+   STORY SECTION
+======================================== */
+.aboutC-story {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 38px;
+    margin-top: -20px;
+    padding: 40px 0 40px;
+    align-items: start;
+}
+
+/* Section title */
+.section-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--deep);
+    margin-bottom: 16px;
+}
+
+/* Intro paragraph */
+.aboutC-intro {
+    color: #56646f;
+    font-size: 17px;
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
+
+/* Timeline */
+.aboutC-timeline { margin-top: 12px; }
+.aboutC-step { margin-bottom: 16px; }
+.aboutC-step strong {
+    font-size: 20px;
+    color: var(--green);
+    display:block;
+    margin-bottom:6px;
+}
+
+/* MD Profile image */
+.aboutC-md {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    object-fit: cover;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    margin-bottom: 12px;
+    display: block;
+}
+
+/* MD Name & role */
+.aboutC-md-name { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.aboutC-role { font-weight: 600; color: var(--green); margin-bottom: 8px; }
+.aboutC-md-bio { color: #56646f; line-height:1.55; }
+
+/* Ensure headings & paragraphs inside scope have sensible defaults */
+.aboutC-page h1, .aboutC-page h2, .aboutC-page h3, .aboutC-page h4 {
+    margin: 0 0 12px;
+    color: inherit;
+}
+.aboutC-page p { margin: 0 0 14px; }
+
+/* ========================================
+   MEDIA SECTION (Video + Article)
+======================================== */
+.aboutC-media-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 22px;
+}
+
+/* Video Card */
+.aboutC-video-card {
+    position: relative;
+    height: 290px;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.08);
+    background: #f5f7f8;
+}
+.aboutC-video-card img { width:100%; height:100%; object-fit:cover; display:block; }
+.aboutC-play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 82px;
+    height: 82px;
+    background: rgba(0,0,0,0.45);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    pointer-events: none;
+}
+
+/* Article Card */
+.aboutC-article-card {
+    background: white;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+.aboutC-article-card h4 { font-size: 22px; margin-bottom: 10px; color: var(--deep); }
+.aboutC-article-card p { color: #56646f; margin-bottom: 12px; }
+.aboutC-article-link { color: var(--green); font-weight: 600; text-decoration: none; }
+
+/* ========================================
+   MODAL (YouTube Player)
+======================================== */
+.aboutC-modal {
+    display: none;               /* toggled by JS */
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    align-items: center;
+    justify-content: center;
+    z-index: 4000;
+}
+.aboutC-modal.open { display: flex; }
+.aboutC-modal-inner {
+    background: white;
+    width: 92%;
+    max-width: 960px;
+    border-radius: 14px;
+    padding: 12px;
+    position: relative;
+}
+.aboutC-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+/* make iframe responsive inside modal */
+.aboutC-modal-inner iframe {
+    width: 100%;
+    height: 56vh;
+    max-height: 640px;
+    border: 0;
+    border-radius: 8px;
+}
+
+/* Cinematic Hero Overlay */
+.aboutC-hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+        to bottom,
+        rgba(5, 42, 58, 0.58) 0%,      /* deep medical-teal tint */
+        rgba(5, 42, 58, 0.32) 40%,
+        rgba(255, 255, 255, 0.0) 100%
+    );
+    pointer-events: none;
+}
+
+/* Add filmic soft blur to the video */
+.aboutC-hero-bg {
+    filter: brightness(0.76) contrast(1.1) saturate(1.2);
+}
+
+/* Make text glow subtly for readability */
+.aboutC-hero-content h1,
+.aboutC-hero-content p,
+.aboutC-hero-badge {
+    text-shadow: 0 3px 12px rgba(0,0,0,0.30);
+}
+
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+.fade-section { opacity: 0; transform: translateY(30px); transition: 0.9s ease; }
+.fade-section.in-view { opacity: 1; transform: translateY(0); }
+
+.fade-in, .fade-in-up { opacity: 0; transform: translateY(25px); transition: 0.8s ease; }
+.fade-in.in-view, .fade-in-up.in-view { opacity: 1; transform: translateY(0); }
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+@media (max-width: 900px) {
+    .aboutC-story { grid-template-columns: 1fr; padding: 20px 0; }
+    .aboutC-media-grid { grid-template-columns: 1fr; }
+    .aboutC-hero-title { font-size: 34px; }
+    .aboutC-sub { font-size: 16px; }
+    .aboutC-video-card { height: 240px; }
+}
+
+/* =========================
+   Cleanup: override any stray global rule that might hide the module
+   (safe and minimal)
+========================= */
+.aboutC-page { visibility: visible; }
+.aboutC-page img { max-width: 100%; height: auto; display:block; }
+
+
+/* ================================
+   PREMIUM CONTACT — C LAYOUT
+   Namespaced: contactC-
+================================ */
+
+/* GLOBAL WRAPPER */
+.contactC-page {
+    font-family: Inter, system-ui, sans-serif;
+    color: #0c2a35;
+    --green: #04a179;
+    --deep: #052a3a;
+    overflow-x: hidden;
+}
+
+
+/* ================================
+   HERO SECTION
+================================ */
+.contactC-hero {
+    position: relative;
+    height: 420px;
+    background: linear-gradient(rgba(0, 32, 46, 0.76), rgba(0, 32, 46, 0.76)),
+                url('/static/images/about/hero/about_hero2.jpeg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.contactC-hero-content h1 {
+    font-size: 42px;
+    font-weight: 800;
+    color: white;
+}
+
+.contactC-hero-content p {
+    margin-top: 10px;
+    color: #e7f3f6;
+    font-size: 18px;
+}
+
+.contactC-hero-buttons {
+    margin-top: 26px;
+}
+
+.contactC-primary {
+    background: var(--green);
+    color: white;
+}
+
+.contactC-outline {
+    border: 2px solid white;
+    color: white;
+    background: transparent;
+}
+
+.contactC-primary:hover,
+.contactC-outline:hover {
+    opacity: 0.85;
+}
+
+/* CURVE */
+.contactC-curve {
+    position: absolute;
+    bottom: -50px;
+    left: -10%;
+    width: 120%;
+    height: 140px;
+    background: #f7fbfd;
+    border-radius: 50%;
+}
+
+
+/* ================================
+   CONTACT CARDS
+================================ */
+.contactC-cards {
+    margin-top: 90px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+}
+
+.contactC-card {
+    background: white;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 8px 26px rgba(0,0,0,0.06);
+    text-align: center;
+    transition: 0.25s ease;
+}
+
+.contactC-card:hover {
+    transform: translateY(-5px);
+}
+
+.contactC-icon {
+    font-size: 40px;
+    margin-bottom: 14px;
+}
+
+.contactC-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.contactC-card p {
+    color: #465a63;
+}
+
+
+/* ================================
+   CONTACT FORM
+================================ */
+.contactC-form {
+    margin-top: 80px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    color: var(--deep);
+    margin-bottom: 20px;
+}
+
+.contactC-form-box {
+    background: white;
+    padding: 32px;
+    border-radius: 18px;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.06);
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    color: var(--deep);
+}
+
+.input-group input,
+.input-group textarea {
+    width: 97%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #cdd6dc;
+    font-size: 16px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.contactC-primary.large {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.contactC-success {
+    margin-top: 12px;
+    color: var(--green);
+    font-weight: 600;
+}
+
+
+/* ================================
+   MAP SECTION
+================================ */
+.contactC-map {
+    margin-top: 70px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.05);
+}
+
+
+/* ================================
+   CTA FINAL
+================================ */
+.contactC-cta {
+    margin: 70px 0;
+    text-align: center;
+}
+
+.contactC-cta h2 {
+    font-size: 28px;
+    margin-bottom: 18px;
+}
+
+
+/* ================================
+   ANIMATIONS
+================================ */
+.fade-section {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: 0.8s ease;
+}
+
+.fade-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: 0.8s ease;
+}
+
+.fade-in.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: 0.8s ease;
+}
+
+.fade-in-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
+
+    .contactC-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .contactC-hero-content h1 {
+        font-size: 32px;
+    }
+
+    .contactC-hero {
+        height: 360px;
+    }
+}
+
+
+/* Fix blog hero overlapping navbar */
+.blog-details-hero {
+    margin-top: 40px;  /* space under sticky header */
+}
+
+.blog-details-banner {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
