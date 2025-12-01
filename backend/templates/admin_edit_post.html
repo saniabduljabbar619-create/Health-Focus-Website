@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-form-section fade-in-up">
+
+    <h1 class="admin-title">Edit Post</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="admin-post-form">
+
+        <!-- POST TYPE -->
+        <label>Post Type</label>
+        <select name="type" class="input-field" id="postType" required>
+            <option value="article" {% if post.type == 'article' %}selected{% endif %}>Article (Image)</option>
+            <option value="video" {% if post.type == 'video' %}selected{% endif %}>Video Post</option>
+        </select>
+
+        <!-- TITLE -->
+        <label>Title</label>
+        <input type="text" name="title" value="{{ post.title }}" class="input-field" required>
+
+        <!-- EXCERPT -->
+        <label>Excerpt</label>
+        <textarea name="excerpt" rows="2" class="input-field" required>{{ post.excerpt }}</textarea>
+
+        <!-- CATEGORY -->
+        <label>Category</label>
+        <select name="category" class="input-field" required>
+            <option value="General" {% if post.category == 'General' %}selected{% endif %}>General</option>
+            <option value="Health Tips" {% if post.category == 'Health Tips' %}selected{% endif %}>Health Tips</option>
+            <option value="News" {% if post.category == 'News' %}selected{% endif %}>News</option>
+            <option value="Products" {% if post.category == 'Products' %}selected{% endif %}>Products</option>
+            <option value="Diagnostics" {% if post.category == 'Diagnostics' %}selected{% endif %}>Diagnostics</option>
+            <option value="Pharmacy" {% if post.category == 'Pharmacy' %}selected{% endif %}>Pharmacy</option>
+        </select>
+
+        <!-- DATE -->
+        <label>Date</label>
+        <input type="date" name="date" class="input-field" value="{{ post.date }}" required>
+
+        <!-- ==========================
+             CURRENT MEDIA PREVIEW
+        =========================== -->
+        {% if post.type == 'article' %}
+            <label>Current Cover Image</label>
+            <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="admin-current-image">
+
+        {% elif post.type == 'video' %}
+            <label>Current Video</label>
+            {% if post.video_url %}
+                <iframe width="420" height="240"
+                        src="https://www.youtube.com/embed/{{ post.video_url | replace('https://youtu.be/', '') | replace('https://www.youtube.com/watch?v=', '') }}">
+                </iframe>
+            {% elif post.video_file %}
+                <video width="420" height="260" controls>
+                    <source src="{{ url_for('static', filename='uploads/videos/' + post.video_file) }}" type="video/mp4">
+                </video>
+            {% endif %}
+        {% endif %}
+
+        <!-- ==========================
+             ARTICLE IMAGE FIELD
+        =========================== -->
+        <div id="imageUploadSection">
+            <label>Change Image (optional)</label>
+            <input type="file" name="image" class="input-field">
+        </div>
+
+        <label>Upload Video (optional)</label>
+      <input type="file" name="video_file" accept="video/*" class="input-field">
+
+      <label>YouTube Video URL (optional)</label>
+      <input type="text" name="video_url" class="input-field" placeholder="https://youtu.be/...">
+
+
+        <!-- ==========================
+             VIDEO FIELDS
+        =========================== -->
+        <div id="videoFields" style="display:none;">
+
+            <label>YouTube Video Link</label>
+            <input type="text" name="video_url" class="input-field"
+                   value="{{ post.video_url or '' }}" placeholder="https://youtu.be/...">
+
+            <label>Upload MP4 Video</label>
+            <input type="file" name="video_file" class="input-field" accept="video/mp4">
+
+        </div>
+
+        <!-- CONTENT -->
+        <label>Post Content</label>
+        <textarea name="content" rows="12" class="wysiwyg">{{ post.content }}</textarea>
+
+        <button type="submit" class="admin-save-btn">Save Changes</button>
+
+    </form>
+
+    <a href="/admin/dashboard" class="admin-back-btn">← Back to Dashboard</a>
+
+</section>
+
+
+<!-- TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/hr5dpz9b88nggim7ouvizwz355ptg0399l75ttkqtlltxccd/tinymce/8/tinymce.min.js"
+        referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea.wysiwyg',
+        plugins: [
+            'anchor autolink charmap codesample emoticons link lists media searchreplace table visualblocks wordcount',
+            'checklist mediaembed casechange formatpainter pageembed a11ychecker tinymcespellchecker permanentpen',
+            'powerpaste advtable advcode advtemplate ai uploadcare mentions tinycomments tableofcontents',
+            'footnotes mergetags autocorrect typography inlinecss markdown importword exportword exportpdf'
+        ],
+        toolbar: 'undo redo | bold italic underline | link media table | numlist bullist | removeformat',
+        tinycomments_mode: 'embedded',
+        uploadcare_public_key: 'd37e4dd03aad534e6dc4'
+    });
+</script>
+
+
+<!-- Toggle Video vs Image -->
+<script>
+    const postType = document.getElementById("postType");
+    const imageSection = document.getElementById("imageUploadSection");
+    const videoSection = document.getElementById("videoFields");
+
+    function updateFields() {
+        if (postType.value === "video") {
+            imageSection.style.display = "none";
+            videoSection.style.display = "block";
+        } else {
+            imageSection.style.display = "block";
+            videoSection.style.display = "none";
+        }
+    }
+
+    // Run ON LOAD (correct display)
+    updateFields();
+
+    // Run when changed
+    postType.addEventListener("change", updateFields);
+</script>
+
+{% endblock %}

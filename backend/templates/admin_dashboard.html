@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-dashboard fade-in-up">
+
+    <h1 class="admin-title">Administrator Dashboard</h1>
+
+    <!-- POSTS MANAGEMENT -->
+    <div class="admin-top-bar">
+        <a href="/admin/new-post" class="admin-create-btn">+ Create New Post</a>
+    </div>
+
+    <table class="admin-table">
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th style="text-align:center;">Actions</th>
+        </tr>
+
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.title }}</td>
+            <td>{{ post.category }}</td>
+            <td>{{ post.date }}</td>
+            <td class="admin-actions">
+                <a href="/admin/edit/{{ post.id }}" class="admin-edit">Edit</a>
+                <span>|</span>
+
+                <!-- Correct DELETE using POST -->
+                <form action="/admin/delete/{{ post.id }}" 
+                      method="POST" 
+                      style="display:inline;"
+                      onsubmit="return confirm('Delete this post?');">
+                    <button type="submit" class="admin-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <!-- HOD MANAGEMENT -->
+    <h2 class="admin-subtitle" style="margin-top:50px;">Manage Staff / HOD Profiles</h2>
+
+    <div class="admin-top-bar">
+        <a href="/admin/hod/new" class="admin-create-btn">+ Add Staff Profile</a>
+    </div>
+
+    <table class="admin-table">
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Role</th>
+            <th style="text-align:center;">Actions</th>
+        </tr>
+
+        {% for hod in hods %}
+        <tr>
+            <td>
+                {% if hod.photo %}
+                <img src="{{ url_for('static', filename=hod.photo) }}"
+                     style="width:60px; height:60px; border-radius:8px; object-fit:cover;">
+                {% else %}
+                <div style="width:60px; height:60px; background:#ccc; border-radius:8px;"></div>
+                {% endif %}
+            </td>
+
+            <td>{{ hod.name }}</td>
+            <td>{{ hod.department }}</td>
+            <td>{{ hod.role }}</td>
+
+            <td class="admin-actions">
+                <a href="/admin/hod/edit/{{ hod.id }}" class="admin-edit">Edit</a>
+                <span>|</span>
+
+                <!-- Correct DELETE using POST -->
+                <form action="/admin/hod/delete/{{ hod.id }}"
+                      method="POST"
+                      style="display:inline;"
+                      onsubmit="return confirm('Delete this staff profile?');">
+                    <button type="submit" class="admin-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/admin/logout" class="admin-logout-btn">Logout</a>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ============================
+     BLOG HEADER
+=============================== -->
+<section class="blog-header">
+    <h1>Health Articles & Updates</h1>
+    <p>Explore medical news, health tips, clinic announcements, and expert insights.</p>
+</section>
+
+<!-- ============================
+     BLOG CARD GRID
+=============================== -->
+<section class="blog-grid">
+
+    {% for post in posts %}
+    <div class="blog-card fade-in-up">
+
+        <div class="blog-img-box">
+
+            {% if post.type == 'video' %}
+                
+                {% if post.video_url %}
+                    {# ---- YOUTUBE VIDEO THUMBNAIL ---- #}
+                    {% set youtube_id = post.video_url.split('v=')[-1].split('&')[0].replace('https://youtu.be/', '') %}
+                    <img src="https://img.youtube.com/vi/{{ youtube_id }}/hqdefault.jpg" 
+                         class="blog-img">
+
+                {% elif post.video_file %}
+                    {# ---- LOCAL VIDEO THUMBNAIL / FALLBACK ---- #}
+                    <img src="{{ url_for('static', filename='uploads/video_placeholder.jpg') }}" 
+                         class="blog-img">
+
+                {% else %}
+                    {# fallback #}
+                    <img src="{{ url_for('static', filename='uploads/default.jpg') }}" 
+                         class="blog-img">
+                {% endif %}
+
+                <div class="video-badge">▶ Video</div>
+
+            {% else %}
+                {# ---- NORMAL ARTICLE IMAGE ---- #}
+                <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="blog-img">
+            {% endif %}
+
+        </div>
+
+        <div class="blog-body">
+            <span class="blog-category">{{ post.category }}</span>
+            <h2>{{ post.title }}</h2>
+            <p class="blog-excerpt">{{ post.excerpt|safe }}</p>
+
+            <div class="blog-meta">
+                <span>{{ post.date }}</span>
+            </div>
+
+            <a href="/blog/{{ post.id }}" class="btn blog-btn">Read More</a>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

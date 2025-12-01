@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ======================
+     HOME HERO (Slider + Text)
+====================== -->
+<section class="home-hero">
+
+    <!-- SLIDER -->
+    <div class="home-hero-slider">
+        <div class="home-slide-container">
+            <img src="{{ url_for('static', filename='images/home_slider/ch1.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch2.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch3.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch4.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch5.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch6.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch7.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch8.jpg') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch9.jpg') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch10.jpg') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch11.jpg') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch12.jpg') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch13.jpg') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch14.jpg') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch15.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch16.png') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch17.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch18.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch19.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch20.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch21.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch22.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch23.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch24.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch25.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch26.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch27.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch28.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch29.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch30.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/ch31.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch32.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch33.JPEG') }}" class="home-slider-img">
+        </div>
+    </div>
+
+    <!-- OVERLAY TEXT -->
+    <div class="home-hero-overlay">
+        <h1>Your Trusted Community Healthcare Center</h1>
+        <p>Delivering excellence in clinical care, pharmacy services, and diagnostic solutions.</p>
+
+        <div class="hero-btns">
+            <a href="/services" class="btn hero-main-btn">Explore Services</a>
+            <a href="/about" class="btn hero-outline-btn">Learn More</a>
+        </div>
+    </div>
+
+</section>
+
+<!-- CURVED TRANSITION -->
+<div class="curve-divider"></div>
+
+<!-- ======================
+     ABOUT PREVIEW
+====================== -->
+<section class="home-description fade-in-up">
+    <h2>Welcome to Health Focus Clinics</h2>
+    <p>
+        We are committed to providing exceptional healthcare services with modern facilities,
+        professional staff, and patient-centered care.
+    </p>
+
+    <div class="manager-section">
+        <img src="{{ url_for('static', filename='images/home_slider/mgr2.JPEG') }}" class="manager-photo">
+        <div class="manager-text">
+            <p>
+                Learn more about our mission, vision, operations, and core objectives.
+            </p>
+            <a class="btn" href="/blog">Read Full Description</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

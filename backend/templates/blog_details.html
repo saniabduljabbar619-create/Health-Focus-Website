@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ============================
+     HERO SECTION (IMAGE / VIDEO)
+=============================== -->
+<section class="blog-details-hero">
+
+    {% if post.type == "video" %}
+
+        {# ================================================
+           UNIVERSAL YOUTUBE PARSER
+           Works for:
+           - https://youtu.be/XXXX
+           - https://youtube.com/watch?v=XXXX
+           - https://youtube.com/shorts/XXXX
+           ================================================= #}
+
+        {% set yt = post.video_url|default('') %}
+
+        {% if yt %}
+            {% if 'youtu.be/' in yt %}
+                {% set youtube_id = yt.split('/')[-1] %}
+            {% elif 'watch?v=' in yt %}
+                {% set youtube_id = yt.split('watch?v=')[-1].split('&')[0] %}
+            {% elif '/shorts/' in yt %}
+                {% set youtube_id = yt.split('/shorts/')[-1].split('?')[0] %}
+            {% else %}
+                {% set youtube_id = yt %}
+            {% endif %}
+
+            <iframe
+                class="blog-details-banner"
+                src="https://www.youtube.com/embed/{{ youtube_id }}"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+
+        {% elif post.video_file %}
+            <video class="blog-details-banner" controls>
+                <source src="{{ url_for('static', filename='uploads/' + post.video_file) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+        {% else %}
+            <img src="{{ url_for('static', filename='uploads/default.jpg') }}" class="blog-details-banner">
+        {% endif %}
+
+    {% else %}
+        <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="blog-details-banner">
+    {% endif %}
+
+</section>
+
+
+
+<!-- ============================
+     BLOG CONTENT
+=============================== -->
+<section class="blog-details-container fade-in-up">
+
+    <div class="blog-details-header">
+        <span class="blog-details-category">{{ post.category }}</span>
+        <h1>{{ post.title }}</h1>
+
+        <div class="blog-details-meta">
+            <span>{{ post.date }}</span>
+            <span>•</span>
+            <span>Health Focus Clinics</span>
+        </div>
+    </div>
+
+    <article class="blog-details-content">
+        {{ post.content | safe }}
+    </article>
+
+    <div class="blog-back-btn">
+        <a href="/blog" class="btn blog-btn">← Back to Articles</a>
+    </div>
+
+</section>
+
+
+
+<!-- ============================
+     RELATED POSTS
+=============================== -->
+<section class="related-posts fade-in-up">
+
+    <h2>Related Articles</h2>
+
+    <div class="related-grid">
+
+        {% for related in related_posts %}
+        <a href="/blog/{{ related.id }}" class="related-card">
+
+            {% if related.type == "video" %}
+
+                {% set rt = related.video_url|default('') %}
+
+                {% if rt %}
+                    {# ---- YOUTUBE THUMBNAIL ---- #}
+
+                    {% if 'youtu.be/' in rt %}
+                        {% set rid = rt.split('/')[-1] %}
+                    {% elif 'watch?v=' in rt %}
+                        {% set rid = rt.split('watch?v=')[-1].split('&')[0] %}
+                    {% elif '/shorts/' in rt %}
+                        {% set rid = rt.split('/shorts/')[-1].split('?')[0] %}
+                    {% else %}
+                        {% set rid = rt %}
+                    {% endif %}
+
+                    <img src="https://img.youtube.com/vi/{{ rid }}/hqdefault.jpg">
+
+                {% elif related.video_file %}
+                    <img src="{{ url_for('static', filename='uploads/default.jpg') }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='uploads/default.jpg') }}">
+                {% endif %}
+
+            {% else %}
+                <img src="{{ url_for('static', filename='uploads/' + related.image) }}">
+            {% endif %}
+
+            <div class="related-info">
+                <span class="related-category">{{ related.category }}</span>
+                <h3>{{ related.title }}</h3>
+            </div>
+
+        </a>
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}

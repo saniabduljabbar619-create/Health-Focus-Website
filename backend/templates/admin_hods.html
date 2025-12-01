@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-hods-page fade-in-up">
+
+    <h1 class="admin-title">Manage Staff / HOD Profiles</h1>
+
+    <a href="/admin/hod/new" class="admin-add-btn">+ Add Staff Profile</a>
+
+    <div class="admin-hod-grid">
+
+        {% for hod in hods %}
+        <div class="admin-hod-card">
+
+            <img src="{{ url_for('static', filename=hod.photo) }}"
+                 class="admin-hod-img"
+                 alt="{{ hod.name }}">
+
+            <div class="admin-hod-info">
+                <h2>{{ hod.name }}</h2>
+                <p class="admin-role">{{ hod.role }}</p>
+                <p class="admin-dept">{{ hod.department }}</p>
+
+                <span class="admin-status {{ 'active' if hod.active else 'inactive' }}">
+                    {{ 'Active' if hod.active else 'Inactive' }}
+                </span>
+            </div>
+
+            <div class="admin-hod-actions">
+                <a href="/admin/hod/edit/{{ hod.id }}" class="admin-edit">Edit</a>
+
+                <form action="/admin/hod/delete/{{ hod.id }}" 
+                      method="POST"
+                      style="display:inline;"
+                      onsubmit="return confirm('Are you sure you want to delete this profile?');">
+                    <button type="submit" class="admin-delete">Delete</button>
+                </form>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

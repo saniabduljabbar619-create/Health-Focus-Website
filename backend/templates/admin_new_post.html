@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-form-section fade-in-up">
+
+    <h1 class="admin-title">Create New Post</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="admin-post-form">
+
+        <!-- POST TYPE -->
+        <label>Post Type</label>
+        <select name="type" class="input-field" id="postType" required>
+            <option value="article">Article (Image + Text)</option>
+            <option value="video">Video Post</option>
+        </select>
+
+        <!-- TITLE -->
+        <label>Title</label>
+        <input type="text" name="title" class="input-field" required>
+
+        <!-- EXCERPT -->
+        <label>Excerpt (short preview text)</label>
+        <textarea name="excerpt" rows="2" class="input-field" required></textarea>
+
+        <!-- CATEGORY -->
+        <label>Category</label>
+        <select name="category" class="input-field" required>
+            <option value="General">General</option>
+            <option value="Health Tips">Health Tips</option>
+            <option value="News">News</option>
+            <option value="Products">Products</option>
+            <option value="Diagnostics">Diagnostics</option>
+            <option value="Pharmacy">Pharmacy</option>
+        </select>
+
+        <!-- DATE -->
+        <label>Date</label>
+        <input type="date" name="date" class="input-field" required>
+
+        <!-- IMAGE UPLOAD (Only for Article) -->
+        <div id="imageUploadSection">
+            <label>Upload Cover Image</label>
+            <input type="file" name="image" class="input-field">
+        </div>
+
+          <label>Upload Video (optional)</label>
+          <input type="file" name="video_file" accept="video/*" class="input-field">
+
+          <label>YouTube Video URL (optional)</label>
+          <input type="text" name="video_url" placeholder="https://youtu.be/xxxx" class="input-field">
+
+
+        <!-- VIDEO FIELDS (Only for Video Posts) -->
+        <div id="videoFields" style="display:none;">
+
+            <label>YouTube Video Link (Optional)</label>
+            <input type="text" name="video_url" class="input-field" placeholder="https://youtu.be/...">
+
+            <label>Upload MP4 Video (Optional)</label>
+            <input type="file" name="video_file" class="input-field" accept="video/mp4">
+
+        </div>
+
+        <!-- CONTENT -->
+        <label>Post Content</label>
+        <textarea name="content" rows="12" class="wysiwyg"></textarea>
+
+        <button type="submit" class="admin-save-btn">Publish Post</button>
+
+    </form>
+
+    <a href="/admin/dashboard" class="admin-back-btn">← Back to Dashboard</a>
+
+</section>
+
+<!-- TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/hr5dpz9b88nggim7ouvizwz355ptg0399l75ttkqtlltxccd/tinymce/8/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+  tinymce.init({
+    selector: 'textarea.wysiwyg',
+    plugins: [
+      'anchor autolink charmap codesample emoticons link lists media searchreplace table visualblocks wordcount',
+      'checklist mediaembed casechange formatpainter pageembed a11ychecker tinymcespellchecker',
+      'permanentpen powerpaste advtable advcode advtemplate ai uploadcare mentions tinycomments',
+      'tableofcontents footnotes mergetags autocorrect typography inlinecss markdown importword exportword exportpdf'
+    ],
+    toolbar: 'undo redo | bold italic underline | link media table | numlist bullist | removeformat',
+    tinycomments_mode: 'embedded',
+    uploadcare_public_key: 'd37e4dd03aad534e6dc4',
+  });
+</script>
+
+<!-- DYNAMIC VIDEO/IMAGE TOGGLER -->
+<script>
+    const postType = document.getElementById("postType");
+    const imageSection = document.getElementById("imageUploadSection");
+    const videoSection = document.getElementById("videoFields");
+
+    postType.addEventListener("change", function() {
+        if (postType.value === "video") {
+            imageSection.style.display = "none";
+            videoSection.style.display = "block";
+        } else {
+            imageSection.style.display = "block";
+            videoSection.style.display = "none";
+        }
+    });
+</script>
+
+{% endblock %}
