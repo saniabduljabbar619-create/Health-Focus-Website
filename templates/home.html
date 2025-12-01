@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ======================
+     HOME HERO (Slider + Text)
+====================== -->
+<section class="home-hero">
+
+    <!-- SLIDER -->
+    <div class="home-hero-slider">
+        <div class="home-slide-container">
+            <img src="{{ url_for('static', filename='images/home_slider/ch1.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/mng1.png') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/ch3.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/pic8.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/mls2.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/pic3.JPEG') }}" class="home-slider-img">
+
+            <img src="{{ url_for('static', filename='images/home_slider/pic1.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/pic10.JPEG') }}" class="home-slider-img">
+            <img src="{{ url_for('static', filename='images/home_slider/pic5.JPEG') }}" class="home-slider-img">
+        </div>
+    </div>
+
+    <!-- OVERLAY TEXT -->
+    <div class="home-hero-overlay">
+        <h1>Your Trusted Community Healthcare Center</h1>
+        <p>Delivering excellence in clinical care, pharmacy services, and diagnostic solutions.</p>
+
+        <div class="hero-btns">
+            <a href="/services" class="btn hero-main-btn">Explore Services</a>
+            <a href="/about" class="btn hero-outline-btn">Learn More</a>
+        </div>
+    </div>
+
+</section>
+
+<!-- CURVED TRANSITION -->
+<div class="curve-divider"></div>
+
+<!-- ======================
+     ABOUT PREVIEW
+====================== -->
+<section class="home-description fade-in-up">
+    <h2>Welcome to Health Focus Clinics</h2>
+    <p>
+        We are committed to providing exceptional healthcare services with modern facilities,
+        professional staff, and patient-centered care.
+    </p>
+
+    <div class="manager-section">
+        <img src="{{ url_for('static', filename='images/home_slider/mng1.png') }}" class="manager-photo">
+        <div class="manager-text">
+            <p>
+                Learn more about our mission, vision, operations, and core objectives.
+            </p>
+            <a class="btn" href="/blog">Read Full Description</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

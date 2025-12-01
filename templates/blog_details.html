@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ============================
+     BLOG HEADER
+============================= -->
+<section class="blog-details-hero">
+    <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="blog-details-banner">
+</section>
+
+<section class="blog-details-container fade-in-up">
+
+    <div class="blog-details-header">
+        <span class="blog-details-category">{{ post.category }}</span>
+        <h1>{{ post.title }}</h1>
+
+        <div class="blog-details-meta">
+            <span>{{ post.date }}</span>
+            <span>•</span>
+            <span>Health Focus Clinics</span>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <article class="blog-details-content">
+        {{ post.content | safe }}
+    </article>
+
+    <!-- Back Button -->
+    <div class="blog-back-btn">
+        <a href="/blog" class="btn blog-btn">← Back to Articles</a>
+    </div>
+
+</section>
+
+<!-- ============================
+     RELATED POSTS
+============================= -->
+<section class="related-posts fade-in-up">
+    <h2>Related Articles</h2>
+
+    <div class="related-grid">
+        {% for related in related_posts %}
+        <a href="/blog/{{ related.id }}" class="related-card">
+            <img src="{{ url_for('static', filename='uploads/' + related.image) }}">
+            <div class="related-info">
+                <span class="related-category">{{ related.category }}</span>
+                <h3>{{ related.title }}</h3>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
