@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="aboutC-page">
+
+  <!-- ======================================
+       HERO SECTION (Premium Branding)
+  ====================================== -->
+<section class="aboutC-hero-hero">
+
+    <video class="aboutC-hero-bg" autoplay muted loop playsinline>
+      <source src="{{ url_for('static', filename='videos/clinic_bg.mp4') }}">
+    </video>
+
+    <!-- Cinematic color overlay -->
+    <div class="aboutC-hero-overlay"></div>
+
+    <div class="aboutC-hero-content">
+
+      <div class="aboutC-hero-badge">Our Story</div>
+
+      <h1 class="aboutC-hero-title">
+        Health Focus — <span class="highlight">Crafting Better Care</span>
+      </h1>
+
+      <p class="aboutC-sub">
+        A clinic built on competence, compassion, and a commitment to advancing community wellness.
+      </p>
+
+      <div class="aboutC-hero-buttons">
+        <a href="/services" class="btn aboutC-primary">Our Services</a>
+        <a href="#aboutC-story" class="btn aboutC-outline">Learn More</a>
+      </div>
+
+    </div>
+
+    <div class="aboutC-curve"></div>
+</section>
+
+
+
+
+  <!-- ======================================
+       STORY SECTION
+  ====================================== -->
+  <section id="aboutC-story" class="aboutC-story container fade-section">
+
+    <div class="aboutC-story-left">
+
+      <h2 class="section-title">Our Journey</h2>
+
+      <p class="aboutC-intro">
+        What began as a small mission-driven clinic has grown into a trusted
+        multi-service healthcare center supporting thousands of patients yearly.
+      </p>
+
+      <div class="aboutC-timeline">
+
+        <div class="aboutC-step fade-in">
+          <strong>2013</strong>
+          <p>Clinic Established — built on integrity and service.</p>
+        </div>
+
+        <div class="aboutC-step fade-in">
+          <strong>2018</strong>
+          <p>Diagnostic Unit Launched — improving precision and outcomes.</p>
+        </div>
+
+        <div class="aboutC-step fade-in">
+          <strong>2023</strong>
+          <p>Pharmacy Expansion — 24/7 access to essential medicines.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <aside class="aboutC-story-right fade-in-up">
+
+      <img src="{{ url_for('static', filename='images/about/md.jpeg') }}" class="aboutC-md">
+
+      <h4 class="aboutC-md-name">Dr. Musa Isah</h4>
+
+      <p class="aboutC-role">Managing Director</p>
+
+      <p class="aboutC-md-bio">
+        Dr. Musa Isah leads Health Focus Clinics with deep clinical experience,
+        a passion for community wellness, and a commitment to accessible care.
+      </p>
+
+    </aside>
+
+  </section>
+
+
+
+  <!-- ======================================
+       MEDIA SECTION
+  ====================================== -->
+  <section class="aboutC-media container fade-section">
+
+    <h3 class="section-title">Featured Media</h3>
+
+    <div class="aboutC-media-grid">
+
+      <!-- Video thumbnail card -->
+      <div class="aboutC-video-card yt-thumb fade-in-up" data-video-id="wkz_gFXcNu0?feature=share">
+        <img src="{{ url_for('static', filename='images/about/youtube_thumb1.jpeg') }}" alt="">
+        <div class="aboutC-play">▶</div>
+      </div>
+
+      <!-- Article card -->
+      <div class="aboutC-article-card fade-in-up">
+        <h4>Message from the MD</h4>
+        <p>
+          "Our mission is to strengthen healthcare delivery through evidence-based
+          practice, innovation, and patient-centered service."
+        </p>
+        <a href="/contact" class="aboutC-article-link">Contact the Clinic →</a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ======================================
+       VIDEO MODAL
+  ====================================== -->
+  <div id="aboutC-modal" class="aboutC-modal" aria-hidden="true">
+    <div class="aboutC-modal-inner">
+      <button id="aboutC-close" class="aboutC-close">✕</button>
+      <div id="aboutC-video-container"></div>
+    </div>
+  </div>
+
+</section>
+
+<script src="{{ url_for('static', filename='js/aboutC.js') }}"></script>
+{% endblock %}

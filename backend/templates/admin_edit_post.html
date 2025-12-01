@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="admin-form-section fade-in-up">
+
+    <h1 class="admin-title">Edit Post</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="admin-post-form">
+
+        <label>Title</label>
+        <input type="text" name="title" value="{{ post.title }}" class="input-field" required>
+
+        <label>Excerpt</label>
+        <textarea name="excerpt" rows="2" class="input-field" required>{{ post.excerpt }}</textarea>
+
+        <label>Category</label>
+        <select name="category" class="input-field" required>
+            <option value="General" {% if post.category == 'General' %}selected{% endif %}>General</option>
+            <option value="Health Tips" {% if post.category == 'Health Tips' %}selected{% endif %}>Health Tips</option>
+            <option value="News" {% if post.category == 'News' %}selected{% endif %}>News</option>
+            <option value="Products" {% if post.category == 'Products' %}selected{% endif %}>Products</option>
+            <option value="Diagnostics" {% if post.category == 'Diagnostics' %}selected{% endif %}>Diagnostics</option>
+            <option value="Pharmacy" {% if post.category == 'Pharmacy' %}selected{% endif %}>Pharmacy</option>
+        </select>
+
+        <label>Date</label>
+        <input type="date" name="date" class="input-field" value="{{ post.date }}" required>
+
+        <label>Current Image</label>
+        <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="admin-current-image">
+
+        <label>Change Image (optional)</label>
+        <input type="file" name="image" class="input-field">
+
+        <label>Post Content</label>
+        <textarea name="content" rows="12" class="wysiwyg">{{ post.content }}</textarea>
+
+        <button type="submit" class="admin-save-btn">Save Changes</button>
+
+    </form>
+
+    <a href="/admin/dashboard" class="admin-back-btn">← Back to Dashboard</a>
+
+</section>
+
+
+<!-- TinyMCE With Your API Key -->
+<script src="https://cdn.tiny.cloud/1/hr5dpz9b88nggim7ouvizwz355ptg0399l75ttkqtlltxccd/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+  tinymce.init({
+    selector: 'textarea',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Nov 29, 2025:
+      'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'ai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+    ],
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+    uploadcare_public_key: 'd37e4dd03aad534e6dc4',
+  });
+</script>
+<textarea>
+  Welcome to TinyMCE!
+</textarea>
+
+{% endblock %}
