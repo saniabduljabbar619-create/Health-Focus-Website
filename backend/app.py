@@ -28,9 +28,10 @@ os.makedirs(UPLOAD_VIDEOS, exist_ok=True)
 app = Flask(__name__)
 app.secret_key = "super-secret-key-456"
 
+# Load raw DB URL from environment
 raw_url = os.environ.get("DATABASE_URL", "")
 
-# Force psycopg3 driver
+# Convert to SQLAlchemy-compatible psycopg3 URL
 if raw_url.startswith("postgres://"):
     raw_url = raw_url.replace("postgres://", "postgresql+psycopg://")
 
@@ -460,6 +461,7 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
