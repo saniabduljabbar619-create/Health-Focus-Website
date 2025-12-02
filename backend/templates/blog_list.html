@@ -20,20 +20,34 @@
         <div class="blog-img-box">
 
             {% if post.type == 'video' %}
-                
+
                 {% if post.video_url %}
-                    {# ---- YOUTUBE VIDEO THUMBNAIL ---- #}
-                    {% set youtube_id = post.video_url.split('v=')[-1].split('&')[0].replace('https://youtu.be/', '') %}
-                    <img src="https://img.youtube.com/vi/{{ youtube_id }}/hqdefault.jpg" 
-                         class="blog-img">
+                    
+                    {# ===== UNIVERSAL YOUTUBE ID EXTRACTOR ===== #}
+                    {% if "youtu.be" in post.video_url %}
+                        {% set youtube_id = post.video_url.split('/')[-1].split('?')[0] %}
+                    {% elif "watch?v=" in post.video_url %}
+                        {% set youtube_id = post.video_url.split('v=')[-1].split('&')[0] %}
+                    {% elif "/embed/" in post.video_url %}
+                        {% set youtube_id = post.video_url.split('/embed/')[-1].split('?')[0] %}
+                    {% elif "/shorts/" in post.video_url %}
+                        {% set youtube_id = post.video_url.split('/shorts/')[-1].split('?')[0] %}
+                    {% else %}
+                        {% set youtube_id = "" %}
+                    {% endif %}
+
+                    {# ---- SHOW YOUTUBE THUMBNAIL ---- #}
+                    <img 
+                        src="https://img.youtube.com/vi/{{ youtube_id }}/hqdefault.jpg"
+                        class="blog-img">
 
                 {% elif post.video_file %}
-                    {# ---- LOCAL VIDEO THUMBNAIL / FALLBACK ---- #}
+                    {# ---- LOCAL VIDEO PLACEHOLDER ---- #}
                     <img src="{{ url_for('static', filename='uploads/video_placeholder.jpg') }}" 
                          class="blog-img">
 
                 {% else %}
-                    {# fallback #}
+                    {# ---- FALLBACK ---- #}
                     <img src="{{ url_for('static', filename='uploads/default.jpg') }}" 
                          class="blog-img">
                 {% endif %}
@@ -42,7 +56,8 @@
 
             {% else %}
                 {# ---- NORMAL ARTICLE IMAGE ---- #}
-                <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="blog-img">
+                <img src="{{ url_for('static', filename='uploads/' + post.image) }}" 
+                     class="blog-img">
             {% endif %}
 
         </div>
