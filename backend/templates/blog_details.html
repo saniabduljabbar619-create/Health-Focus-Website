@@ -1,37 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
 
+{# =============================
+   YOUTUBE ID PARSER MACRO
+   ============================= #}
+{% macro youtube_id(url) %}
+    {% if "youtu.be/" in url %}
+        {{ url.split('/')[-1].split('?')[0] }}
+    {% elif "watch?v=" in url %}
+        {{ url.split('watch?v=')[-1].split('&')[0] }}
+    {% elif "/shorts/" in url %}
+        {{ url.split('/shorts/')[-1].split('?')[0] }}
+    {% elif "/embed/" in url %}
+        {{ url.split('/embed/')[-1].split('?')[0] }}
+    {% else %}
+        {{ url }}
+    {% endif %}
+{% endmacro %}
+
+
+
 <!-- ============================
-     HERO SECTION (IMAGE / VIDEO)
+     HERO SECTION
 =============================== -->
 <section class="blog-details-hero">
 
     {% if post.type == "video" %}
 
-        {# ================================================
-           UNIVERSAL YOUTUBE PARSER
-           Works for:
-           - https://youtu.be/XXXX
-           - https://youtube.com/watch?v=XXXX
-           - https://youtube.com/shorts/XXXX
-           ================================================= #}
-
         {% set yt = post.video_url|default('') %}
 
         {% if yt %}
-            {% if 'youtu.be/' in yt %}
-                {% set youtube_id = yt.split('/')[-1] %}
-            {% elif 'watch?v=' in yt %}
-                {% set youtube_id = yt.split('watch?v=')[-1].split('&')[0] %}
-            {% elif '/shorts/' in yt %}
-                {% set youtube_id = yt.split('/shorts/')[-1].split('?')[0] %}
-            {% else %}
-                {% set youtube_id = yt %}
-            {% endif %}
-
             <iframe
                 class="blog-details-banner"
-                src="https://www.youtube.com/embed/{{ youtube_id }}"
+                src="https://www.youtube.com/embed/{{ youtube_id(yt) }}"
                 frameborder="0"
                 allowfullscreen>
             </iframe>
@@ -39,7 +40,6 @@
         {% elif post.video_file %}
             <video class="blog-details-banner" controls>
                 <source src="{{ url_for('static', filename='uploads/' + post.video_file) }}" type="video/mp4">
-                Your browser does not support the video tag.
             </video>
 
         {% else %}
@@ -96,25 +96,14 @@
 
             {% if related.type == "video" %}
 
-                {% set rt = related.video_url|default('') %}
+                {% set rv = related.video_url|default('') %}
 
-                {% if rt %}
-                    {# ---- YOUTUBE THUMBNAIL ---- #}
-
-                    {% if 'youtu.be/' in rt %}
-                        {% set rid = rt.split('/')[-1] %}
-                    {% elif 'watch?v=' in rt %}
-                        {% set rid = rt.split('watch?v=')[-1].split('&')[0] %}
-                    {% elif '/shorts/' in rt %}
-                        {% set rid = rt.split('/shorts/')[-1].split('?')[0] %}
-                    {% else %}
-                        {% set rid = rt %}
-                    {% endif %}
-
-                    <img src="https://img.youtube.com/vi/{{ rid }}/hqdefault.jpg">
+                {% if rv %}
+                    <img src="https://img.youtube.com/vi/{{ youtube_id(rv) }}/hqdefault.jpg">
 
                 {% elif related.video_file %}
-                    <img src="{{ url_for('static', filename='uploads/default.jpg') }}">
+                    <img src="{{ url_for('static', filename='uploads/video_placeholder.jpg') }}">
+
                 {% else %}
                     <img src="{{ url_for('static', filename='uploads/default.jpg') }}">
                 {% endif %}
