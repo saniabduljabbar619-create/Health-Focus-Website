@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-import os
 
 from flask import Flask, render_template, send_from_directory, request, redirect, jsonify, url_for, session
 from werkzeug.utils import secure_filename
@@ -453,6 +452,7 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
