@@ -55,12 +55,6 @@ class Post(db.Model):
     video_url = db.Column(db.Text)
     content = db.Column(db.Text)
 
-@app.route("/init-db")
-def init_db():
-    db.create_all()
-    return "Database initialized."
-
-
 # ===========================================================
 # PAGE ROUTES
 # ===========================================================
@@ -461,6 +455,7 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
