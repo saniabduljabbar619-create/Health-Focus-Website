@@ -80,25 +80,29 @@ def md_general():
 # ===========================================================
 @app.route("/blog")
 def blog_list():
-    with open(POSTS_PATH) as f:
-        posts = json.load(f)
-
+    posts = Post.query.order_by(Post.id.desc()).all()  # newest first
     return render_template("blog_list.html", posts=posts)
 
 
 @app.route("/blog/<post_id>")
 def blog_details(post_id):
-    with open(POSTS_PATH) as f:
-        posts = json.load(f)
-
-    post = next((p for p in posts if p["id"] == post_id), None)
+    post = Post.query.get(post_id)
     if not post:
         return "Post Not Found", 404
 
-    related_posts = [p for p in posts if p["id"] != post_id][:3]
+    # get 3 other posts except current one
+    related_posts = (
+        Post.query.filter(Post.id != post_id)
+        .order_by(Post.id.desc())
+        .limit(3)
+        .all()
+    )
 
-    return render_template("blog_details.html", post=post, related_posts=related_posts)
-
+    return render_template(
+        "blog_details.html",
+        post=post,
+        related_posts=related_posts
+    )
 
 # ===========================================================
 # STATIC PAGES
@@ -415,6 +419,7 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
