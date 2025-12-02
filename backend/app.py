@@ -1,3 +1,7 @@
+from flask_sqlalchemy import SQLAlchemy
+import psycopg2
+import os
+
 from flask import Flask, render_template, send_from_directory, request, redirect, jsonify, url_for, session
 from werkzeug.utils import secure_filename
 import os, json
@@ -25,6 +29,29 @@ os.makedirs(UPLOAD_VIDEOS, exist_ok=True)
 
 app = Flask(__name__)
 app.secret_key = "super-secret-key-456"
+
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+
+class Post(db.Model):
+    id = db.Column(db.String, primary_key=True)
+    type = db.Column(db.String(20))
+    title = db.Column(db.Text)
+    excerpt = db.Column(db.Text)
+    category = db.Column(db.String(100))
+    date = db.Column(db.String(20))
+    image = db.Column(db.String(255))
+    video_file = db.Column(db.String(255))
+    video_url = db.Column(db.Text)
+    content = db.Column(db.Text)
+
+@app.route("/init-db")
+def init_db():
+    db.create_all()
+    return "Database initialized."
 
 
 # ===========================================================
@@ -427,4 +454,5 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
