@@ -281,7 +281,7 @@ def admin_edit_post(post_id):
 # ===========================================================
 # DELETE POST
 # ===========================================================
-@app.route("/admin/delete/<post_id>")
+@app.route("/admin/delete/<post_id>", methods=["POST"])
 @admin_required
 def admin_delete_post(post_id):
 
@@ -427,3 +427,4 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
