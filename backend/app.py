@@ -28,10 +28,24 @@ os.makedirs(UPLOAD_VIDEOS, exist_ok=True)
 app = Flask(__name__)
 app.secret_key = "super-secret-key-456"
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+# -----------------------------------------------------
+# DATABASE CONFIG — Fix Aiven/Postgres URL automatically
+# -----------------------------------------------------
+raw_url = os.environ.get("DATABASE_URL", "")
+
+# Render & Aiven sometimes give `postgres://` → SQLAlchemy needs `postgresql+psycopg2://`
+if raw_url.startswith("postgres://"):
+    raw_url = raw_url.replace("postgres://", "postgresql+psycopg2://")
+
+# Aiven gives `postgresql://` → still needs the psycopg2 driver
+if raw_url.startswith("postgresql://"):
+    raw_url = raw_url.replace("postgresql://", "postgresql+psycopg2://")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = raw_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+
 
 
 class Post(db.Model):
@@ -452,6 +466,7 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
