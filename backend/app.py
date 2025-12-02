@@ -153,9 +153,9 @@ def admin_logout():
 @app.route("/admin/dashboard")
 @admin_required
 def admin_dashboard():
-    with open(POSTS_PATH) as f:
-        posts = json.load(f)
+    posts = Post.query.order_by(Post.id.desc()).all()  # newest first
 
+    # HODS still JSON for now
     with open(HODS_PATH) as f:
         hods = json.load(f)
 
@@ -171,22 +171,8 @@ def admin_dashboard():
 @app.route("/admin/new-post", methods=["GET", "POST"])
 @admin_required
 def admin_new_post():
-    import json
-    from werkzeug.utils import secure_filename
-
-    # Ensure posts file exists
-    if not os.path.exists(POSTS_PATH):
-        with open(POSTS_PATH, "w") as f:
-            json.dump([], f)
 
     if request.method == "POST":
-        # Load existing posts
-        with open(POSTS_PATH, "r", encoding="utf-8") as f:
-            posts = json.load(f)
-
-        # New ID (string)
-        new_id = str(max([int(p["id"]) for p in posts]) + 1 if posts else 1)
-
         # Form fields
         post_type = request.form.get("type", "article")
         title = request.form.get("title", "").strip()
@@ -194,54 +180,44 @@ def admin_new_post():
         category = request.form.get("category", "General")
         date = request.form.get("date", "")
         content = request.form.get("content", "")
-
-        # Optional video URL (YouTube or embed links)
         video_url = request.form.get("video_url", "").strip()
 
-        # --- IMAGE UPLOAD (optional) ---
+        # ---------------- IMAGE UPLOAD ----------------
         image_file = request.files.get("image")
         if image_file and image_file.filename:
             image_filename = secure_filename(image_file.filename)
-            image_save_path = os.path.join(UPLOAD_POSTS, image_filename)
-            image_file.save(image_save_path)
+            image_file.save(os.path.join(UPLOAD_POSTS, image_filename))
         else:
             image_filename = "default.jpg"
 
-        # --- VIDEO UPLOAD (optional) ---
+        # ---------------- VIDEO UPLOAD ----------------
         video_file = request.files.get("video_file")
         if video_file and video_file.filename:
             video_filename = secure_filename(video_file.filename)
-            video_save_path = os.path.join(UPLOAD_POSTS, video_filename)
-            video_file.save(video_save_path)
-            # If admin uploads a video file we prefer to mark type=video
+            video_file.save(os.path.join(UPLOAD_POSTS, video_filename))
             post_type = "video"
         else:
-            video_filename = ""  # empty string if no upload
+            video_filename = ""
 
-        # Build new post object
-        new_post = {
-            "id": new_id,
-            "type": post_type,
-            "title": title,
-            "excerpt": excerpt,
-            "category": category,
-            "date": date,
-            "image": image_filename,
-            "video_file": video_filename,
-            "video_url": video_url,
-            "content": content
-        }
+        # Create DB object
+        new_post = Post(
+            id=os.urandom(8).hex(),  # 🔥 unique ID
+            type=post_type,
+            title=title,
+            excerpt=excerpt,
+            category=category,
+            date=date,
+            image=image_filename,
+            video_file=video_filename,
+            video_url=video_url,
+            content=content
+        )
 
-        # Add to beginning (newest first)
-        posts.insert(0, new_post)
-
-        # Save posts.json
-        with open(POSTS_PATH, "w", encoding="utf-8") as f:
-            json.dump(posts, f, indent=4, ensure_ascii=False)
+        db.session.add(new_post)
+        db.session.commit()
 
         return redirect("/admin/dashboard")
 
-    # GET — render the create form
     return render_template("admin_new_post.html")
 
 
@@ -253,57 +229,44 @@ def admin_new_post():
 @admin_required
 def admin_edit_post(post_id):
 
-    with open(POSTS_PATH, "r", encoding="utf-8") as f:
-        posts = json.load(f)
-
-    post = next((p for p in posts if p["id"] == post_id), None)
+    post = Post.query.get(post_id)
     if not post:
-        return "Post Not Found", 404
+        return "Post not found", 404
 
     if request.method == "POST":
 
-        post["title"] = request.form.get("title", "")
-        post["excerpt"] = request.form.get("excerpt", "")
-        post["category"] = request.form.get("category", "General")
-        post["date"] = request.form.get("date", "")
-        post["content"] = request.form.get("content", "")
+        post.title = request.form.get("title", "")
+        post.excerpt = request.form.get("excerpt", "")
+        post.category = request.form.get("category", "General")
+        post.date = request.form.get("date", "")
+        post.content = request.form.get("content", "")
+        post.video_url = request.form.get("video_url", "").strip()
 
-        # -----------------------------
-        # IMAGE UPDATE (Optional)
-        # -----------------------------
+        # IMAGE
         image_file = request.files.get("image")
-        if image_file and image_file.filename != "":
+        if image_file and image_file.filename:
             img_name = secure_filename(image_file.filename)
             image_file.save(os.path.join(UPLOAD_POSTS, img_name))
-            post["image"] = img_name
+            post.image = img_name
 
-        # -----------------------------
-        # VIDEO FILE UPDATE (Optional)
-        # -----------------------------
+        # VIDEO
         video_file = request.files.get("video_file")
-        if video_file and video_file.filename != "":
+        if video_file and video_file.filename:
             video_name = secure_filename(video_file.filename)
-            video_file.save(os.path.join(UPLOAD_POSTS, video_name))   # ✔ FIXED
-            post["video_file"] = video_name
+            video_file.save(os.path.join(UPLOAD_POSTS, video_name))
+            post.video_file = video_name
 
-        # -----------------------------
-        # YOUTUBE LINK UPDATE
-        # -----------------------------
-        post["video_url"] = request.form.get("video_url", "").strip()
-
-        # Auto-determine type
-        if post.get("video_file") or post.get("video_url"):
-            post["type"] = "video"
+        # TYPE auto-detect
+        if post.video_file or post.video_url:
+            post.type = "video"
         else:
-            post["type"] = "article"
+            post.type = "article"
 
-        # Save JSON
-        with open(POSTS_PATH, "w", encoding="utf-8") as f:
-            json.dump(posts, f, indent=4, ensure_ascii=False)
-
+        db.session.commit()
         return redirect("/admin/dashboard")
 
     return render_template("admin_edit_post.html", post=post)
+
 
 
 # ===========================================================
@@ -312,17 +275,14 @@ def admin_edit_post(post_id):
 @app.route("/admin/delete/<post_id>", methods=["POST"])
 @admin_required
 def admin_delete_post(post_id):
+    post = Post.query.get(post_id)
+    if not post:
+        return "Not found", 404
 
-    with open(POSTS_PATH) as f:
-        posts = json.load(f)
-
-    posts = [p for p in posts if p["id"] != post_id]
-
-    with open(POSTS_PATH, "w") as f:
-        json.dump(posts, f, indent=4)
+    db.session.delete(post)
+    db.session.commit()
 
     return redirect("/admin/dashboard")
-
 
 # ===========================================================
 # TINYMCE IMAGE UPLOADER
@@ -455,6 +415,7 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
