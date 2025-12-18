@@ -80,19 +80,21 @@ def md_general():
 # ===========================================================
 @app.route("/blog")
 def blog_list():
-    posts = Post.query.order_by(Post.id.desc()).all()  # newest first
-    return render_template("blog_list.html", posts=posts)
+    try:
+        posts = Post.query.order_by(Post.id.desc()).all()
+        return render_template("blog_list.html", posts=posts)
+    except Exception as e:
+        return str(e), 500
 
 
-@app.route("/blog/<post_id>")
+
+@app.route("/blog/<int:post_id>")
 def blog_details(post_id):
-    post = Post.query.get(post_id)
-    if not post:
-        return "Post Not Found", 404
+    post = Post.query.get_or_404(post_id)
 
-    # get 3 other posts except current one
     related_posts = (
-        Post.query.filter(Post.id != post_id)
+        Post.query
+        .filter(Post.id != post_id)
         .order_by(Post.id.desc())
         .limit(3)
         .all()
@@ -419,6 +421,7 @@ def hod_details(hod_id):
 # ===========================================================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
 
 
 
